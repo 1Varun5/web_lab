@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+</head>
+<body>
+
+    <h2>Form with Validation</h2>
+
+    <form id="myForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <div id="nameError" style="color: red;"></div><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <div id="emailError" style="color: red;"></div><br>
+
+        <label for="mobile">Mobile No:</label><br>
+        <input type="text" id="mobile" name="mobile"><br>
+        <div id="mobileError" style="color: red;"></div><br>
+
+        <label for="gender">Gender:</label><br>
+        <input type="text" id="gender" name="gender"><br>
+        <div id="genderError" style="color: red;"></div><br>
+
+        <label for="color">Favorite Color:</label><br>
+        <input type="text" id="color" name="color"><br>
+        <div id="colorError" style="color: red;"></div><br>
+
+        <button type="button" onclick="validateForm()">Submit</button>
+    </form>
+
+    <textarea id="result" rows="6" cols="50" readonly></textarea>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Clear previous errors
+            document.getElementById("nameError").innerText = "";
+            document.getElementById("emailError").innerText = "";
+            document.getElementById("mobileError").innerText = "";
+            document.getElementById("genderError").innerText = "";
+            document.getElementById("colorError").innerText = "";
+
+            // Get form values
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const mobile = document.getElementById("mobile").value;
+            const gender = document.getElementById("gender").value;
+            const color = document.getElementById("color").value;
+
+            // Name validation
+            if (name.trim() === "") {
+                document.getElementById("nameError").innerText = "Name is required.";
+                isValid = false;
+            }
+
+            // Email validation
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText = "Please enter a valid email.";
+                isValid = false;
+            }
+
+            // Mobile number validation
+            const mobilePattern = /^[0-9]{10}$/;
+            if (!mobilePattern.test(mobile)) {
+                document.getElementById("mobileError").innerText = "Please enter a valid 10-digit mobile number.";
+                isValid = false;
+            }
+
+            // Gender validation
+            if (gender.trim() === "") {
+                document.getElementById("genderError").innerText = "Gender is required.";
+                isValid = false;
+            }
+
+            // Favorite color validation
+            if (color.trim() === "") {
+                document.getElementById("colorError").innerText = "Favorite color is required.";
+                isValid = false;
+            }
+
+            // Display result if form is valid
+            if (isValid) {
+                const result = `Name: ${name}\nEmail: ${email}\nMobile No: ${mobile}\nGender: ${gender}\nFavorite Color: ${color}`;
+                document.getElementById("result").value = result;
+            }
+        }
+    </script>
+
+</body>
+</html>
